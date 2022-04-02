@@ -63,7 +63,7 @@ function createFilmRow(film){
     for(let i = 1; i<=5;i++  ){
         starRow += `<i class = 'bi-star${(i <= film.rating)?'-fill':''}' d-inline-block align-text" role="img"></i>`; 
     }
-    return `<tr>
+    return `<tr id = 'row-${film.id}'>
         <td ${film.favorite? "class = 'text-danger'":'' }>${film.title}</td>
         <td>
             <input type="checkbox" id="favorite" name="favorite" ${film.favorite? "checked":'' }>
@@ -73,11 +73,7 @@ function createFilmRow(film){
         <td>
             ${starRow}
         </td>
-        <td>
-            <button id = 'film-${film.id}' class='btn btn-danger'>
-                <i class = "bi bi-trash3 " role="img"></i>
-            </button>
-        </td>
+
     </tr>
     `
 
@@ -90,6 +86,17 @@ function fillFilmTable(films){
        const filmEl = createFilmRow(film);
        filmTable.insertAdjacentHTML("beforeend",filmEl);
 
+       const filmRow = document.getElementById(('row-'+film.id));
+       const tdActions = document.createElement('td');
+       tdActions.innerHTML = `<button id = 'film-${film.id}' class='btn btn-danger'>
+                <i class = "bi bi-trash3 " role="img"></i></button>`;
+       filmRow.appendChild(tdActions);
+      
+       tdActions.addEventListener('click', e => {
+            filmRow.remove();
+           console.log(e.target.id);
+       })
+
     }
 }
 
@@ -99,7 +106,7 @@ function setSideBar(btnSelected){
 
         if(child.getAttribute("class") !== btnSelected.getAttribute("class")){
             child.setAttribute("class","btn  btn-side-bar");
-            console.log(child);
+
         }
     }
     console.log(sideBar);
