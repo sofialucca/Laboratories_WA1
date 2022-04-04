@@ -67,7 +67,7 @@ function createFilmRow(film){
         <td ${film.favorite? "class = 'text-danger'":'' }>${film.title}</td>
         <td>
             <input type="checkbox" id="favorite" name="favorite" ${film.favorite? "checked":'' }>
-            <label for="scales">Favorite</label>      
+            <label for="favorite">Favorite</label>      
         </td>
         <td>${(film.date.isValid())?film.date.format("MMMM DD, YYYY"):""}</td>
         <td>
